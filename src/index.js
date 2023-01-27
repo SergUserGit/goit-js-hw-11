@@ -70,32 +70,32 @@ function getMurkup(elem) {
 
   const str =
     '<div class="photo-card">' +
-    '<img src="' +
+    '<img width="400" height="300" src="' +
     webformatURL +
     '" alt="' +
     tags +
     '" loading="lazy">' +
     '<div class="info">' +
     '<p class="info-item">' +
-    '<b>Likes</b>' +
+    '<b class="info-title">Likes</b>' +
     '<span>' +
     likes +
     '</span>' +
     '</p>' +
     '<p class="info-item">' +
-    '<b>Views</b>' +
+    '<b class="info-title">Views</b>' +
     '<span>' +
     views +
     '</span>' +
     '</p>' +
     '<p class="info-item">' +
-    '<b>Comments</b>' +
+    '<b class="info-title">Comments</b>' +
     '<span>' +
     comments +
     '</span>' +
     '</p>' +
     '<p class="info-item">' +
-    '<b>Downloads</b>' +
+    '<b class="info-title">Downloads</b>' +
     '<span>' +
     downloads +
     '</span>' +
