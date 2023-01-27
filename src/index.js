@@ -19,10 +19,14 @@ Notiflix.Notify.init({
 const elemForm = document.querySelector('.search-form');
 const elemInput = document.querySelector('input[name="searchQuery"]');
 
+const elemGallery = document.querySelector('.gallery');
+
 elemForm.addEventListener('submit', onFormSubmit);
 
 function onFormSubmit(evt) {
   evt.preventDefault();
+
+  elemGallery.innerHTML = '';
 
   const inputValue = elemInput.value;
 
@@ -52,36 +56,49 @@ function onFormSubmit(evt) {
           const newElem = getMurkup(elem);
           return newElem;
         });
-        //  for (const zn of arrayLength) {
-        //    console.log(zn.webformatURL);
-        //    console.log(zn.largeImageURL);
-        //   console.log(zn.tags);
-        //   console.log(zn.likes);
-        //   console.log(zn.views);
-        //   console.log(zn.comments);
-        //   console.log(zn.downloads);
-        //}
+
+        const newMurkup = arrayElement.join('');
+
+        elemGallery.insertAdjacentHTML('afterbegin', newMurkup);
       }
     })
     .catch();
 }
 
 function getMurkup(elem) {
+  const { webformatURL, tags, likes, views, comments, downloads } = elem;
+
   const str =
     '<div class="photo-card">' +
-    '<img src="" alt="" loading="lazy" />' +
+    '<img src="' +
+    webformatURL +
+    '" alt="' +
+    tags +
+    '" loading="lazy">' +
     '<div class="info">' +
     '<p class="info-item">' +
     '<b>Likes</b>' +
+    '<span>' +
+    likes +
+    '</span>' +
     '</p>' +
     '<p class="info-item">' +
     '<b>Views</b>' +
+    '<span>' +
+    views +
+    '</span>' +
     '</p>' +
     '<p class="info-item">' +
     '<b>Comments</b>' +
-    +'</p>' +
-    +'<p class="info-item">' +
-    +'<b>Downloads</b>' +
+    '<span>' +
+    comments +
+    '</span>' +
+    '</p>' +
+    '<p class="info-item">' +
+    '<b>Downloads</b>' +
+    '<span>' +
+    downloads +
+    '</span>' +
     '</p>' +
     '</div>' +
     '</div>';
