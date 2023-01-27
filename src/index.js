@@ -45,7 +45,45 @@ function onFormSubmit(evt) {
       } else {
         const totalHits = date.data.totalHits;
         Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`);
+
+        const arrayLength = date.data.hits;
+
+        const arrayElement = arrayLength.map(elem => {
+          const newElem = getMurkup(elem);
+          return newElem;
+        });
+        //  for (const zn of arrayLength) {
+        //    console.log(zn.webformatURL);
+        //    console.log(zn.largeImageURL);
+        //   console.log(zn.tags);
+        //   console.log(zn.likes);
+        //   console.log(zn.views);
+        //   console.log(zn.comments);
+        //   console.log(zn.downloads);
+        //}
       }
     })
     .catch();
+}
+
+function getMurkup(elem) {
+  const str =
+    '<div class="photo-card">' +
+    '<img src="" alt="" loading="lazy" />' +
+    '<div class="info">' +
+    '<p class="info-item">' +
+    '<b>Likes</b>' +
+    '</p>' +
+    '<p class="info-item">' +
+    '<b>Views</b>' +
+    '</p>' +
+    '<p class="info-item">' +
+    '<b>Comments</b>' +
+    +'</p>' +
+    +'<p class="info-item">' +
+    +'<b>Downloads</b>' +
+    '</p>' +
+    '</div>' +
+    '</div>';
+  return str;
 }
