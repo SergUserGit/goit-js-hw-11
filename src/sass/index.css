@@ -34,9 +34,17 @@
 }
 
 button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin-left: -1px;
   border: none;
   cursor: pointer;
   height: 22.3906px;
   width: 35px;
+}
+
+.icon-button {
+  width: 15px;
+  height: 15px;
 }/*# sourceMappingURL=index.css.map */
