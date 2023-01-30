@@ -1,3 +1,6 @@
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
+
 import axios from 'axios';
 
 import Notiflix from 'notiflix';
@@ -15,6 +18,8 @@ Notiflix.Notify.init({
   // distance: '70px',
   opacity: 1,
 });
+
+let lightbox = new SimpleLightbox('.gallery a');
 
 const elemForm = document.querySelector('.search-form');
 const elemInput = document.querySelector('input[name="searchQuery"]');
@@ -76,6 +81,7 @@ function onFormSubmit(evt) {
         const newMurkup = arrayElement.join('');
 
         elemGallery.insertAdjacentHTML('afterbegin', newMurkup);
+        lightbox.refresh();
       }
     })
     .catch();
@@ -123,21 +129,34 @@ function onLoadMoreButtonClick() {
         const newMurkup = arrayElement.join('');
 
         elemGallery.insertAdjacentHTML('beforeend', newMurkup);
+        lightbox.refresh();
       }
     })
     .catch();
 }
 
 function getMurkup(elem) {
-  const { webformatURL, tags, likes, views, comments, downloads } = elem;
+  const {
+    webformatURL,
+    tags,
+    likes,
+    views,
+    comments,
+    downloads,
+    largeImageURL,
+  } = elem;
 
   const str =
     '<div class="photo-card">' +
+    '<a href="' +
+    largeImageURL +
+    '">' +
     '<img width="400" height="300" src="' +
     webformatURL +
     '" alt="' +
     tags +
     '" loading="lazy">' +
+    '</a>' +
     '<div class="info">' +
     '<p class="info-item">' +
     '<b class="info-title">Likes</b>' +
