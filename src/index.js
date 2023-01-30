@@ -32,7 +32,8 @@ const elemLoadMore = document.querySelector('.load-more');
 elemLoadMore.addEventListener('click', onLoadMoreButtonClick);
 
 let pageNumber = 0;
-let pictureCount = 40;
+let countOfImages = 0;
+const pictureCount = 40;
 
 elemForm.addEventListener('submit', onFormSubmit);
 
@@ -40,6 +41,7 @@ function onFormSubmit(evt) {
   evt.preventDefault();
 
   pageNumber = 1;
+  countOfImages = 0;
 
   elemLoadContainer.style.display = 'none';
 
@@ -73,6 +75,11 @@ function onFormSubmit(evt) {
 
         const arrayLength = date.data.hits;
 
+        //  console.log(totalHits);
+        //   console.log(date.data.hits.length);
+
+        countOfImages += date.data.hits.length;
+
         const arrayElement = arrayLength.map(elem => {
           const newElem = getMurkup(elem);
           return newElem;
@@ -81,7 +88,24 @@ function onFormSubmit(evt) {
         const newMurkup = arrayElement.join('');
 
         elemGallery.insertAdjacentHTML('afterbegin', newMurkup);
+
+        const { height: cardHeight } = document
+          .querySelector('.gallery')
+          .firstElementChild.getBoundingClientRect();
+
+        window.scrollBy({
+          top: cardHeight * 4,
+          behavior: 'smooth',
+        });
+
         lightbox.refresh();
+
+        if (totalHits - countOfImages <= 0) {
+          elemLoadContainer.style.display = 'none';
+          Notiflix.Notify.info(
+            "We're sorry, but you've reached the end of search results."
+          );
+        }
       }
     })
     .catch();
@@ -108,10 +132,10 @@ function onLoadMoreButtonClick() {
     .then(date => {
       const arrayLength = date.data.hits.length;
       if (arrayLength === 0) {
-        elemLoadContainer.style.display = 'none';
-        Notiflix.Notify.info(
-          "We're sorry, but you've reached the end of search results."
-        );
+        //   elemLoadContainer.style.display = 'none';
+        //    Notiflix.Notify.info(
+        //      "We're sorry, but you've reached the end of search results."
+        //    );
         //  Notiflix.Notify.failure(
         //    'Sorry, there are no images matching your search query. Please try again.'
         //  );
@@ -121,6 +145,11 @@ function onLoadMoreButtonClick() {
 
         const arrayLength = date.data.hits;
 
+        //   console.log(totalHits);
+        //   console.log(date.data.hits.length);
+
+        countOfImages += date.data.hits.length;
+
         const arrayElement = arrayLength.map(elem => {
           const newElem = getMurkup(elem);
           return newElem;
@@ -129,7 +158,24 @@ function onLoadMoreButtonClick() {
         const newMurkup = arrayElement.join('');
 
         elemGallery.insertAdjacentHTML('beforeend', newMurkup);
+
+        const { height: cardHeight } = document
+          .querySelector('.gallery')
+          .firstElementChild.getBoundingClientRect();
+
+        window.scrollBy({
+          top: cardHeight * 4,
+          behavior: 'smooth',
+        });
+
         lightbox.refresh();
+
+        if (totalHits - countOfImages <= 0) {
+          elemLoadContainer.style.display = 'none';
+          Notiflix.Notify.info(
+            "We're sorry, but you've reached the end of search results."
+          );
+        }
       }
     })
     .catch();
